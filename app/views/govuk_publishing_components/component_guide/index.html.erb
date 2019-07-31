@@ -76,7 +76,7 @@
   <h2 class="component-doc-h2">All gem components (<%= @gem_component_docs.length %>)</h2>
 <% end %>
 
-<ul class="component-list">
+<ul class="component-list" id="components-in-the-gem-list">
   <% @gem_component_docs.each do |component_doc| %>
     <li>
       <%= link_to component_doc.name, component_doc_path(component_doc.id), class: "govuk-link" %>
