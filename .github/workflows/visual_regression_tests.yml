@@ -18,7 +18,7 @@ jobs:
           key: bundle-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: bundle
       - run: bundle install --jobs 4 --retry 3 --deployment
-      - run: npm install
+      - run: npm ci
       - uses: percy/exec-action@v0.3.0
         with:
           command: "bundle exec rspec ./spec/visual_regression_tests/all_components.rb"
