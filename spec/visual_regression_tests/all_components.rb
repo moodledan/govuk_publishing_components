@@ -11,7 +11,10 @@ describe "visual regression test runner Percy", type: :feature, js: true do
       component_links.push link[:href]
     end
 
-    # component_links.first(2).last(1).each{ |link|
+    # TODO: The alternative loop is useful when testing as it doesn't run
+    # through absolutely all of the components, but should be removed before
+    # merging in.
+    # component_links.first(2).last(1).each do |link|
     component_links.each do |link|
       slug = link.gsub(/http:\/\/127.0.0.1:\d{4,5}\/component-guide\//, "")
 
