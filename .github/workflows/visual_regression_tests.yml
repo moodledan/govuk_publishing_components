@@ -1,0 +1,26 @@
+name: Visual regression test
+
+on: [pull_request]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest]
+        node-version: [14.x]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: bundle
+      - run: bundle install --jobs 4 --retry 3 --deployment
+      - run: npm install
+      - uses: percy/exec-action@v0.3.0
+        with:
+          command: "bundle exec rspec ./spec/visual_regression_tests/all_components.rb"
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
