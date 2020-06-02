@@ -21,16 +21,8 @@
   border-color: govuk-colour("white");
 }
 
-.gem-c-breadcrumbs--collapse-on-mobile {
+.govuk-breadcrumbs--collapse-on-mobile {
   @include govuk-media-query($until: tablet) {
-    .govuk-breadcrumbs__list {
-      display: flex;
-    }
-
-    .govuk-breadcrumbs__list-item:not(:last-child):not(:first-child) {
-      display: none;
-    }
-
     .govuk-breadcrumbs__list-item {
       padding-top: 14px;
       padding-bottom: 14px;
