@@ -45,15 +45,17 @@ module GovukPublishingComponents
         }
       end
 
+      def parent_is_step_by_step?
+        parent_item_options[:step_by_step]
+      end
+
       def output
         return content_item_options unless content_item_navigation.html_publication_with_parent?
         return parent_item_options if parent_item_navigation.priority_breadcrumbs
 
-        step_by_step_header = parent_item_options[:step_by_step]
-
         {
-          step_by_step: step_by_step_header,
-          breadcrumbs: step_by_step_header ? parent_breadcrumbs.first : parent_breadcrumbs,
+          step_by_step: parent_is_step_by_step?,
+          breadcrumbs: parent_is_step_by_step? ? parent_breadcrumbs.first : parent_breadcrumbs,
         }
       end
 
@@ -61,7 +63,7 @@ module GovukPublishingComponents
         if navigation.content_tagged_to_a_finder?
           {
             step_by_step: false,
-            breadcrumbs: navigation.breadcrumbs,
+            breadcrumbs: navigation.finder_breadcrumbs,
           }
         elsif navigation.content_tagged_to_current_step_by_step?
           {
